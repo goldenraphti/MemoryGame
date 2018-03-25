@@ -2,6 +2,26 @@
  * Create a list that holds all of your cards
  */
 
+// creates list with all its items twice
+let listCards = [
+  'diamond',
+  'plane',
+  'anchor',
+  'bolt',
+  'cube',
+  'leaf',
+  'bicycle',
+  'bomb',
+    'diamond',
+  'plane',
+  'anchor',
+  'bolt',
+  'cube',
+  'leaf',
+  'bicycle',
+  'bomb'
+]
+
 
 /*
  * Display the cards on the page
@@ -24,6 +44,68 @@ function shuffle(array) {
 
     return array;
 }
+
+// create the common part of each card, appending it in the deck
+function createCommonHTMLcard(){
+    const deck = document.querySelector('ul.deck');
+    deck.insertAdjacentHTML('beforeend', '<li class="card match"><i class="fa"></i></li>');
+    console.log(`after created common card number: ${array[i]}`);
+}
+
+function createIndividualStyleEachCard(cardID){
+    //select all tags i in deck
+    const lastCardIcon = deck.querySelectorAll('i');
+    // select the last occurence of i in the deck (which had been newly created and therefore does not yet has a the specific class creating the icon)
+    
+    // creates different specific part icon depending of which card ID it is
+    switch (cardID) {
+        case ('diamond'):
+            lastCardIcon.className = 'fa fa-diamond';
+            break;
+        case ('plane'):
+            lastCardIcon.className = 'fa fa-paper-plane-o';
+            break;
+        case ('anchor'):
+            lastCardIcon.className = 'fa fa-anchor';
+            break;
+        case ('bolt'):
+            lastCardIcon.className = 'fa fa-bolt';
+            break;
+        case ('cube'):
+            lastCardIcon.className = 'fa fa-cube';
+            break;
+        case ('leaf'):
+            lastCardIcon.className = 'fa fa-leaf';
+            break;
+        case ('bicycle'):
+            lastCardIcon.className = 'fa fa-bicycle';
+            break;
+        case ('bomb'):
+            lastCardIcon.className = 'fa fa-bomb';
+            break;
+    };
+    
+    console.log(`after creating specific part for: array[i]-> ${array[i]} - lastCardIcon-> ${lastCardIcon} - cardID-> ${cardID}`);
+};
+
+// function setting up the game board
+function setGameBoard(array){
+    
+    console.log(`number of cards in the list: ${array.length}`);
+    
+    shuffle(array);
+    console.log(`list of cards after shuffling it: ${array}`);
+    
+    for (let i=0 ; i < array.length ; i++){
+        createCommonHTMLcard();
+        createIndividualStyleEachCard(array[i]);
+    };
+}
+
+
+// call the function setting up the game board, with already the list of cards
+setGameBoard(listCards);
+
 
 
 /*
