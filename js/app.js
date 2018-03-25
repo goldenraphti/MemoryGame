@@ -45,47 +45,49 @@ function shuffle(array) {
     return array;
 }
 
+//creates variable to select the whole deck of card
+const deck = document.querySelector('ul.deck');
+
 // create the common part of each card, appending it in the deck
 function createCommonHTMLcard(){
-    const deck = document.querySelector('ul.deck');
-    deck.insertAdjacentHTML('beforeend', '<li class="card match"><i class="fa"></i></li>');
-    console.log(`after created common card number: ${array[i]}`);
+    deck.insertAdjacentHTML('beforeend', '<li class="card"><i class="fa"></i></li>');
+    //console.log(`after created common card number: ${array[i]}`);
 }
 
+//creates the specific part for each card and attach an id to it as attribute
 function createIndividualStyleEachCard(cardID){
     //select all tags i in deck
     const lastCardIcon = deck.querySelectorAll('i');
-    // select the last occurence of i in the deck (which had been newly created and therefore does not yet has a the specific class creating the icon)
     
     // creates different specific part icon depending of which card ID it is
     switch (cardID) {
         case ('diamond'):
-            lastCardIcon.className = 'fa fa-diamond';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-diamond';
             break;
         case ('plane'):
-            lastCardIcon.className = 'fa fa-paper-plane-o';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-paper-plane-o';
             break;
         case ('anchor'):
-            lastCardIcon.className = 'fa fa-anchor';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-anchor';
             break;
         case ('bolt'):
-            lastCardIcon.className = 'fa fa-bolt';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-bolt';
             break;
         case ('cube'):
-            lastCardIcon.className = 'fa fa-cube';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-cube';
             break;
         case ('leaf'):
-            lastCardIcon.className = 'fa fa-leaf';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-leaf';
             break;
         case ('bicycle'):
-            lastCardIcon.className = 'fa fa-bicycle';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-bicycle';
             break;
         case ('bomb'):
-            lastCardIcon.className = 'fa fa-bomb';
+            lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-bomb';
             break;
     };
     
-    console.log(`after creating specific part for: array[i]-> ${array[i]} - lastCardIcon-> ${lastCardIcon} - cardID-> ${cardID}`);
+    console.log(`after creating specific part for cardID : ${cardID}`);
 };
 
 // function setting up the game board
