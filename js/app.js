@@ -124,14 +124,42 @@ function showCard(card){
     for (let i = 0; i < allCards.length ; i++) {
         allCards[i].addEventListener('click', function(card) {
                 card.target.setAttribute("class", "show open card");
+            
+                
+                cardIDStoring(card);
+            
             }, false );
     }
+    
+}
 
+let cardClickedMemory = ['',''];
+
+//function store the class of i in the variable cardClickedMemory array. In its first parameter if completely empty, or in its second if first is empty. And if both are used then empty both and store in first.
+function cardIDStoring(card) {
+    if (cardClickedMemory[0] === '' && cardClickedMemory[1] === ''){
+        console.log(`cardClickedMemory 0 and 1 are empty`);
+        cardClickedMemory[0] = card.target.querySelector('i').className;
+    } else if (cardClickedMemory[0] !== '' && cardClickedMemory[1] === '') {
+        console.log(`only cardClickedMemory 1 is empty`);
+        cardClickedMemory[1] = card.target.querySelector('i').className;
+    } else {
+        console.log(`ERROR, neither cardClickedMemory 0 nor 1 are empty`);
+    }
+    console.log(`now that a tile was click, at the end of the cardCheckingCard function, the state of cardClickedmemory is: ${cardClickedMemory}`);
+}
+
+function clearCardClickedMemory() {
+    cardClickedMemory = ['',''];
+}
+
+// function checking if the 2 cards checked before are the same. If it does then put them as validated, else put them wrong plus hide them again and clear the cardClickedMemory (use function clearCardClickedMemory())
+function cardChecking() {
 }
 
 function cardClicking() {
     showCard();
-    // cardChecking();
+    cardChecking();
 }
 
 // call the function setting up the game board, with already the list of cards
