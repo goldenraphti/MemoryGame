@@ -104,12 +104,6 @@ function setGameBoard(array){
     };
 }
 
-
-// call the function setting up the game board, with already the list of cards
-setGameBoard(listCards);
-
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -120,3 +114,27 @@ setGameBoard(listCards);
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
+//function showing card when clicked
+function showCard(card){
+    //select all tags i in deck
+    const allCards = deck.querySelectorAll('li');
+    
+    for (let i = 0; i < allCards.length ; i++) {
+        allCards[i].addEventListener('click', function(card) {
+                card.target.setAttribute("class", "show open card");
+            }, false );
+    }
+
+}
+
+function cardClicking() {
+    showCard();
+    // cardChecking();
+}
+
+// call the function setting up the game board, with already the list of cards
+setGameBoard(listCards);
+//make the cards clickable and their behaviour when clicked
+cardClicking();
