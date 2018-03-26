@@ -102,7 +102,16 @@ function setGameBoard(array){
         createCommonHTMLcard();
         createIndividualStyleEachCard(array[i]);
     };
+    moveNumber = 0;
 }
+
+//function removing a potential existing game board
+function removeExistingBoard() {
+    while (deck.firstChild) {
+    deck.removeChild(deck.firstChild);
+}
+}
+
 
 /*
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
@@ -120,8 +129,6 @@ function cardClicking(card){
                 card.target.setAttribute("class", "show open card");
                 
                 cardIDStoring(card);
-            
-            
                 cardChecking();
             
             }, false );
@@ -153,7 +160,7 @@ function clearCardClickedMemory() {
     console.log(`cleared memory of cardClickedmemory now is: ${cardClickedMemory}`);
 }
 // variable counting the number of moves
-let moveNumber = 0;
+let moveNumber;
 // select the move counter display
 const movesDisplay = document.querySelector('.moves');
 // function adding a move everytime two cards have been checked
@@ -180,7 +187,7 @@ function cardChecking() {
         }
     };
 
-    const delayHiding = 1000; //1 second
+    const delayHiding = 800; //1 second
     
     // check only if 2 cards are being open
     if (lastTwoCardsChecked.length === 2) {
@@ -202,10 +209,28 @@ function cardChecking() {
         }
         moveCounter();
         clearCardClickedMemory();
+
     };
 }
+
+// variable selecting the reset button
+const resetButton = document.querySelector('.restart');
+
+//function reseting the game to begining
+function resetGame() {
+    resetButton.addEventListener('click',function(){
+        removeExistingBoard();
+        setGameBoard(listCards);
+        moveNumber = 0;
+        movesDisplay.textContent = moveNumber;
+         cardClickedMemory = ['',''];
+        cardClicking();
+    } , false);
+};
 
 // call the function setting up the game board, with already the list of cards
 setGameBoard(listCards);
 //make the cards clickable and their behaviour when clicked
 cardClicking();
+
+resetGame();
