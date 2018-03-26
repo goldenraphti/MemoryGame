@@ -105,12 +105,6 @@ function setGameBoard(array){
 }
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
@@ -158,23 +152,35 @@ function clearCardClickedMemory() {
     cardClickedMemory = ['',''];
     console.log(`cleared memory of cardClickedmemory now is: ${cardClickedMemory}`);
 }
+// variable counting the number of moves
+let moveNumber = 0;
+// select the move counter display
+const movesDisplay = document.querySelector('.moves');
+// function adding a move everytime two cards have been checked
+function moveCounter (){
+    
+    console.log(`move counter: ${moveNumber}`);
+    moveNumber++;
+    console.log(`move counter: ${moveNumber}`);
+    movesDisplay.textContent = moveNumber;
+}
 
 
 // function checking if the 2 cards checked before are the same. If it does then put them as validated, else put them wrong plus hide them again and clear the cardClickedMemory (use function clearCardClickedMemory())
 
 function cardChecking() {
     
-    // variable selecting the last 1 or 2 open cards
-const lastTwoCardsChecked = deck.querySelectorAll('li.open.show');
+        // variable selecting the last 1 or 2 open cards
+    const lastTwoCardsChecked = deck.querySelectorAll('li.open.show');
 
-    // function hiding cards once they've been checked different
-function hideNonSimilarCards() {
-    for (i=0; i < 2 ; i++){
-        lastTwoCardsChecked[i].setAttribute("class", "card")
-    }
-};
-    
-const delayHiding = 1000; //1 second
+        // function hiding cards once they've been checked different
+    function hideNonSimilarCards() {
+        for (i=0; i < 2 ; i++){
+            lastTwoCardsChecked[i].setAttribute("class", "card")
+        }
+    };
+
+    const delayHiding = 1000; //1 second
     
     // check only if 2 cards are being open
     if (lastTwoCardsChecked.length === 2) {
@@ -194,7 +200,7 @@ const delayHiding = 1000; //1 second
                     };
                 }, delayHiding);
         }
-        
+        moveCounter();
         clearCardClickedMemory();
     };
 }
