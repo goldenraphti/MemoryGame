@@ -130,6 +130,7 @@ function cardClicking(card){
                 
                 cardIDStoring(card);
                 cardChecking();
+                checkWinning();
             
             }, false );
     }
@@ -233,6 +234,15 @@ function resetGame() {
 };
 
 
+//function checking if player has won
+function checkWinning() {
+    
+    const cardMatching = deck.querySelectorAll('li.match').length;
+    console.log(cardMatching);
+    if(cardMatching === listCards.length) {
+        console.log(`victory`);
+    }
+}
 
 // call the function setting up the game board, with already the list of cards
 setGameBoard(listCards);
