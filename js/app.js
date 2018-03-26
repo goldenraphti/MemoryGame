@@ -241,6 +241,7 @@ function checkWinning() {
     console.log(cardMatching);
     if(cardMatching === listCards.length) {
         console.log(`victory`);
+        
     }
 }
 
