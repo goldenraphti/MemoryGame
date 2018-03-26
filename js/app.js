@@ -183,11 +183,12 @@ function cardChecking() {
         // function hiding cards once they've been checked different
     function hideNonSimilarCards() {
         for (i=0; i < 2 ; i++){
+            
             lastTwoCardsChecked[i].setAttribute("class", "card")
         }
     };
 
-    const delayHiding = 800; //1 second
+    const delayHiding = 1000; //1 second
     
     // check only if 2 cards are being open
     if (lastTwoCardsChecked.length === 2) {
@@ -197,10 +198,13 @@ function cardChecking() {
         if (cardClickedMemory[0] === cardClickedMemory[1]) {
             console.log(`both values are check equals`)
             for (i=0; i < 2 ; i++){
-                lastTwoCardsChecked[i].setAttribute("class", "card match");
+                lastTwoCardsChecked[i].setAttribute("class", "card match animated tada");
             }
         } else {
                 console.log(`both values are NOT equals, should wait and hide`)
+                for (i=0; i < 2 ; i++){
+                        lastTwoCardsChecked[i].setAttribute("class", "card show animated shake red")
+                    };
                 setTimeout(function(){              
                     for (i=0; i < 2 ; i++){
                         lastTwoCardsChecked[i].setAttribute("class", "card")
@@ -227,6 +231,8 @@ function resetGame() {
         cardClicking();
     } , false);
 };
+
+
 
 // call the function setting up the game board, with already the list of cards
 setGameBoard(listCards);
