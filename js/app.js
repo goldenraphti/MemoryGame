@@ -117,16 +117,18 @@ function setGameBoard(array){
 
 
 //function showing card when clicked
-function showCard(card){
+function cardClicking(card){
     //select all tags i in deck
-    const allCards = deck.querySelectorAll('li');
+    const allCards = deck.querySelectorAll('li:not(.show):not(.open):not(.match)');
     
     for (let i = 0; i < allCards.length ; i++) {
         allCards[i].addEventListener('click', function(card) {
                 card.target.setAttribute("class", "show open card");
-            
                 
                 cardIDStoring(card);
+            
+            
+                cardChecking();
             
             }, false );
     }
@@ -144,22 +146,57 @@ function cardIDStoring(card) {
         console.log(`only cardClickedMemory 1 is empty`);
         cardClickedMemory[1] = card.target.querySelector('i').className;
     } else {
+        clearCardClickedMemory();
+        cardClickedMemory[0] = card.target.querySelector('i').className
         console.log(`ERROR, neither cardClickedMemory 0 nor 1 are empty`);
     }
     console.log(`now that a tile was click, at the end of the cardCheckingCard function, the state of cardClickedmemory is: ${cardClickedMemory}`);
 }
 
+// function clearing the memory of the last 2 cards checked
 function clearCardClickedMemory() {
     cardClickedMemory = ['',''];
+    console.log(`cleared memory of cardClickedmemory now is: ${cardClickedMemory}`);
 }
+
 
 // function checking if the 2 cards checked before are the same. If it does then put them as validated, else put them wrong plus hide them again and clear the cardClickedMemory (use function clearCardClickedMemory())
-function cardChecking() {
-}
 
-function cardClicking() {
-    showCard();
-    cardChecking();
+function cardChecking() {
+    
+    // variable selecting the last 1 or 2 open cards
+const lastTwoCardsChecked = deck.querySelectorAll('li.open.show');
+
+    // function hiding cards once they've been checked different
+function hideNonSimilarCards() {
+    for (i=0; i < 2 ; i++){
+        lastTwoCardsChecked[i].setAttribute("class", "card")
+    }
+};
+    
+const delayHiding = 1000; //1 second
+    
+    // check only if 2 cards are being open
+    if (lastTwoCardsChecked.length === 2) {
+        console.log(`2 cards are being open`)
+        
+        // if both values are strictly equal (classes of the icon, which means the ID of the card) then convert all li classes to match
+        if (cardClickedMemory[0] === cardClickedMemory[1]) {
+            console.log(`both values are check equals`)
+            for (i=0; i < 2 ; i++){
+                lastTwoCardsChecked[i].setAttribute("class", "card match");
+            }
+        } else {
+                console.log(`both values are NOT equals, should wait and hide`)
+                setTimeout(function(){              
+                    for (i=0; i < 2 ; i++){
+                        lastTwoCardsChecked[i].setAttribute("class", "card")
+                    };
+                }, delayHiding);
+        }
+        
+        clearCardClickedMemory();
+    };
 }
 
 // call the function setting up the game board, with already the list of cards
