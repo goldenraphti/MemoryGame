@@ -7,13 +7,27 @@
 <!--    link font awesome icons online-->
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 <!--    link google fonts online-->
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Open+Sans:300,600" rel="stylesheet"> 
 <!--    link animate.css-->
     <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+        <div class="victory-modal hidden">
+        <div class="victory-icon">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+              <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+              <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+        </div>
+        <h2>Congratulations! You Won!</h2>
+        <div class="game-results">
+            With <span class="moves-victory-result"></span> Moves.
+            <br>Woooooo!
+        </div>
+        <button class="restart">Play again!</button>
+    </div>
 
     <div class="container">
         <header>
@@ -37,6 +51,7 @@
         <ul class="deck">
         </ul>
     </div>
+
 
     <script src="js/app.js"></script>
 </body>

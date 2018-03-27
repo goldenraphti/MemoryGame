@@ -219,18 +219,21 @@ function cardChecking() {
 }
 
 // variable selecting the reset button
-const resetButton = document.querySelector('.restart');
+const resetButton = document.querySelectorAll('.restart');
 
 //function reseting the game to begining
 function resetGame() {
-    resetButton.addEventListener('click',function(){
-        removeExistingBoard();
-        setGameBoard(listCards);
-        moveNumber = 0;
-        movesDisplay.textContent = moveNumber;
-         cardClickedMemory = ['',''];
-        cardClicking();
-    } , false);
+    for (let i=0 ; i<2 ; i++) {
+        resetButton[i].addEventListener('click',function(){
+            document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');  
+            removeExistingBoard();
+            setGameBoard(listCards);
+            moveNumber = 0;
+            movesDisplay.textContent = moveNumber;
+             cardClickedMemory = ['',''];
+            cardClicking();
+        } , false);
+    };
 };
 
 
@@ -241,8 +244,14 @@ function checkWinning() {
     console.log(cardMatching);
     if(cardMatching === listCards.length) {
         console.log(`victory`);
-        
+
+        document.querySelector('.victory-modal').setAttribute('class','victory-modal');        
+        displayVictoryMoves();
     }
+}
+
+function displayVictoryMoves() {
+    document.querySelector('.moves-victory-result').textContent = moveNumber;
 }
 
 // call the function setting up the game board, with already the list of cards
@@ -251,3 +260,4 @@ setGameBoard(listCards);
 cardClicking();
 
 resetGame();
+
