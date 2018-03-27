@@ -19,7 +19,9 @@ Stars are an arbitrary scale valuing the amount of moves used to win the game. T
 
 Responsive using CSS grid.
 Icons are font-awesome old v.4 version, so be carefull when playing with it.
+Use of online Google Fonts and Font-Awesome.
 
 ## Credits
 
 This game was designed by Udacity, and coded by Raphaël Ferrand on a starter base, for the Google Scholarship - Front End Web Development Nanodegree of Udacity.
+Google fonts for the fonts and Font-Awesome for the icons.
