@@ -2,19 +2,24 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Instructions for the players](#instructions-for-the-players)
+* [Technical Instructions for Developers](#technical-instructions-for-developers)
+* [Credits](#credits)
 
-## Instructions
+## Instructions for the players
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Memory Game.
+Time will start when the player open a first card.
+The user can only check 2 cards maximum. If they match they will lock in open position. Else they will hide again.
+The goal is to match all the cards as quickly as possible.
+The number of moves, and the time are recorded.
+Stars are an arbitrary scale valuing the amount of moves used to win the game. The less moves the player used, the more stars (s)he kept.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Technical Instructions for Developers
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Responsive using CSS grid.
+Icons are font-awesome old v.4 version, so be carefull when playing with it.
 
-## Contributing
+## Credits
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+This game was designed by Udacity, and coded by Raphaël Ferrand on a starter base, for the Google Scholarship - Front End Web Development Nanodegree of Udacity.

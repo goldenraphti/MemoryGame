@@ -338,3 +338,6 @@ setGameBoard(listCards); // function setting up the gane board
 cardClicking(); // function enabling the game play
 
 resetGame(); //function to restart the game
+
+//TODO: Add unique functionality beyond the minimum requirements (Implement a leaderboard, store game state using local storage, difficulty levels (easy, intermediate, hard) which change the amount of cards in the game (9(3*3)/16(4*4grid)/25(grid5*5), etc.)
+//TODO: Implement additional optimizations that improve the performance and user experience of the game (keyboard shortcuts for gameplay, etc).
