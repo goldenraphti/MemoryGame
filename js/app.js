@@ -1,26 +1,25 @@
 /*
- * Create a list that holds all of your cards
+ * First part : set up the game board
  */
 
-// creates list with all its items twice
-let listCards = [
-  'diamond',
-  'plane',
-  'anchor',
-  'bolt',
-  'cube',
-  'leaf',
-  'bicycle',
-  'bomb',
+let listCards = [ // creates list with all its items twice
     'diamond',
-  'plane',
-  'anchor',
-  'bolt',
-  'cube',
-  'leaf',
-  'bicycle',
-  'bomb'
-]
+    'plane',
+    'anchor',
+    'bolt',
+    'cube',
+    'leaf',
+    'bicycle',
+    'bomb',
+    'diamond',
+    'plane',
+    'anchor',
+    'bolt',
+    'cube',
+    'leaf',
+    'bicycle',
+    'bomb'
+];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -43,7 +42,6 @@ const deck = document.querySelector('ul.deck');
 // create the common part of each card, appending it in the deck
 function createCommonHTMLcard(){
     deck.insertAdjacentHTML('beforeend', '<li class="card"><i class="fa"></i></li>');
-    //console.log(`after created common card number: ${array[i]}`);
 }
 
 //creates the specific part for each card and attach an id to it as attribute
@@ -78,17 +76,13 @@ function createIndividualStyleEachCard(cardID){
             lastCardIcon[lastCardIcon.length - 1 ].className = 'fa fa-bomb';
             break;
     };
-    
-    console.log(`after creating specific part for cardID : ${cardID}`);
-};
+
+}
 
 // function setting up the game board
 function setGameBoard(array){
     
-    console.log(`number of cards in the list: ${array.length}`);
-    
     shuffle(array);
-    console.log(`list of cards after shuffling it: ${array}`);
     
     for (let i=0 ; i < array.length ; i++){
         createCommonHTMLcard();
@@ -100,31 +94,30 @@ function setGameBoard(array){
 //function removing a potential existing game board
 function removeExistingBoard() {
     while (deck.firstChild) {
-    deck.removeChild(deck.firstChild);
-}
+        deck.removeChild(deck.firstChild);
+    }
 }
 
 
 /*
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ *   Second part: Functions describing the game play and display
  */
 
 
-//function showing card when clicked
-function cardClicking(card){
-    //select all tags i in deck
-    const allCards = deck.querySelectorAll('li:not(.show):not(.open):not(.match)');
+
+function cardClicking(card){ //function showing card when clicked
+    
+    const allCards = deck.querySelectorAll('li:not(.show):not(.open):not(.match)'); //select all tags i in deck except the cards already open or matched
     
     for (let i = 0; i < allCards.length ; i++) {
         allCards[i].addEventListener('click', function(card) {
                 if(card.target.tagName === 'LI'){
-                    card.target.setAttribute("class", "show open card");
+                    card.target.setAttribute("class", "show open card"); // show the card clicked
 
-                    cardIDStoring(card);
-                    cardChecking();
-                    checkWinning();
-                    starRating ();
+                    cardIDStoring(card); // store the ID of the card clicked
+                    cardChecking(); // check if the card is the same than the one before (if it's the second card open)
+                    checkWinning(); // check if player have won the game
+                    starRating (); // check if need to change stars rating
                 }
             
             }, false );
@@ -132,50 +125,43 @@ function cardClicking(card){
     
 }
 
-let cardClickedMemory = ['',''];
+let cardClickedMemory = ['','']; // variable storing the 0 1 or 2 last cards. Starts the game storing 0 cards. 
 
 //function store the class of i in the variable cardClickedMemory array. In its first parameter if completely empty, or in its second if first is empty. And if both are used then empty both and store in first.
 function cardIDStoring(card) {
     if (cardClickedMemory[0] === '' && cardClickedMemory[1] === ''){
-        console.log(`cardClickedMemory 0 and 1 are empty`);
         cardClickedMemory[0] = card.target.querySelector('i').className;
     } else if (cardClickedMemory[0] !== '' && cardClickedMemory[1] === '') {
-        console.log(`only cardClickedMemory 1 is empty`);
         cardClickedMemory[1] = card.target.querySelector('i').className;
     } else {
         clearCardClickedMemory();
-        cardClickedMemory[0] = card.target.querySelector('i').className
-        console.log(`ERROR, neither cardClickedMemory 0 nor 1 are empty`);
+        cardClickedMemory[0] = card.target.querySelector('i').className;
     }
-    console.log(`now that a tile was click, at the end of the cardCheckingCard function, the state of cardClickedmemory is: ${cardClickedMemory}`);
 }
 
-// function clearing the memory of the last 2 cards checked
-function clearCardClickedMemory() {
+
+function clearCardClickedMemory() { // function clearing the memory of the last 2 cards checked
     cardClickedMemory = ['',''];
-    console.log(`cleared memory of cardClickedmemory now is: ${cardClickedMemory}`);
 }
-// variable counting the number of moves
-let moveNumber;
-// select the move counter display
-const movesDisplay = document.querySelector('.moves');
-// function adding a move everytime two cards have been checked
-function moveCounter (){
-    
-    console.log(`move counter: ${moveNumber}`);
+
+let moveNumber; // variable counting the number of moves
+
+const movesDisplay = document.querySelector('.moves'); // select the move counter display
+
+function moveCounter (){ // function adding a move everytime two cards have been checked
+
     moveNumber++;
-    console.log(`move counter: ${moveNumber}`);
     movesDisplay.textContent = moveNumber;
 }
 
-// result of stars
-let starRate = 3;
-//variable selecting the star result board
-const starBoard = document.querySelector('.stars');
-//variable selecting all the stars displayed in the result board
-const starsDisplayed = starBoard.querySelectorAll('i');
-// function rating in stars the result of the user, and displaying it in the board
-function starRating () {
+
+let starRate = 3; // result of stars (starts with 3)
+
+const starBoard = document.querySelector('.stars'); //variable selecting the star result board
+
+const starsDisplayed = starBoard.querySelectorAll('i'); //variable selecting all the stars displayed in the result board
+
+function starRating () { // function rating in stars the result of the user, and displaying it in the board
     if(moveNumber>25){
         starRate = 0;
     }  else if (moveNumber===25){
@@ -192,20 +178,17 @@ function starRating () {
         starRate = 0;
         starsDisplayed[2].setAttribute('class','fa fa-star-o')
     };
-    
-    console.log(`star rate: ${starRate}`);
+
 }
 
 
 // function checking if the 2 cards checked before are the same. If it does then put them as validated, else put them wrong plus hide them again and clear the cardClickedMemory (use function clearCardClickedMemory())
-
 function cardChecking() {
     
-        // variable selecting the last 1 or 2 open cards
-    const lastTwoCardsChecked = deck.querySelectorAll('li.open.show');
-
-        // function hiding cards once they've been checked different
-    function hideNonSimilarCards() {
+        
+    const lastTwoCardsChecked = deck.querySelectorAll('li.open.show'); // variable selecting the last 1 or 2 open cards
+        
+    function hideNonSimilarCards() { // function hiding cards once they've been checked different
         for (i=0; i < 2 ; i++){
             
             lastTwoCardsChecked[i].setAttribute("class", "card");
@@ -214,18 +197,14 @@ function cardChecking() {
 
     const delayHiding = 1000; //1 second
     
-    // check only if 2 cards are being open
-    if (lastTwoCardsChecked.length === 2) {
-        console.log(`2 cards are being open`)
+    if (lastTwoCardsChecked.length === 2) { // check only if 2 cards are being open
         
         // if both values are strictly equal (classes of the icon, which means the ID of the card) then convert all li classes to match
         if (cardClickedMemory[0] === cardClickedMemory[1]) {
-            console.log(`both values are check equals`)
             for (i=0; i < 2 ; i++){
                 lastTwoCardsChecked[i].setAttribute("class", "card match animated tada");
             }
         } else {
-                console.log(`both values are NOT equals, should wait and hide`)
                 for (i=0; i < 2 ; i++){
                         lastTwoCardsChecked[i].setAttribute("class", "card show animated shake red")
                     };
@@ -234,17 +213,16 @@ function cardChecking() {
                         lastTwoCardsChecked[i].setAttribute("class", "card")
                     };
                 }, delayHiding);
-        }
-        moveCounter();
-        clearCardClickedMemory();
+        };
+        moveCounter(); // add 1 to move Counter value, and will display it
+        clearCardClickedMemory(); // since 2 cards have been open and checked, it clears the card storage memory
 
-    } else if (moveNumber===0) {
+    } else if (moveNumber===0) { // if it is the first card open of the game, starts the timer
                 startTimer();
    };
 }
 
-// function restarting stars to initial state
-function starReset() {
+function starReset() { // function restarting stars to initial state
     starRate = 0;
     for ( i=0 ; i<3 ; i++ ){
             starsDisplayed[i].setAttribute('class','fa fa-star');
@@ -252,11 +230,9 @@ function starReset() {
     
 }
 
-// variable selecting the reset button
-const resetButton = document.querySelectorAll('.restart');
+const resetButton = document.querySelectorAll('.restart'); // variable selecting the reset button
 
-//function reseting the game to begining
-function resetGame() {
+function resetGame() { //function reseting the game to begining
     for (let i=0 ; i<2 ; i++) {
         resetButton[i].addEventListener('click',function(){
             
@@ -274,13 +250,11 @@ function resetGame() {
 };
 
 
-//function checking if player has won
-function checkWinning() {
+
+function checkWinning() { //function checking if player has won
     
     const cardMatching = deck.querySelectorAll('li.match').length;
-    console.log(cardMatching);
     if(cardMatching === listCards.length) {
-        console.log(`victory`);
         stopTimer();
         document.querySelector('.victory-modal').setAttribute('class','victory-modal');        
         displayVictoryMoves();
@@ -301,54 +275,49 @@ let Interval ;
 const appendTensVictory = document.getElementById("tens-victory");
 const appendSecondsVictory = document.getElementById("seconds-victory");
 
-function timeLiveCaluclations () {
-    tens++; 
+function timeLiveCaluclations () { // make timer calculations and display it
+    tens++; // add 1 ten of second (and is called by the interval of Start Timer function each 10 milliseconds)
     
     if(tens < 9){
-      appendTens.innerHTML = "0" + tens;
-      appendTensVictory.innerHTML = "0" + tens;
+        appendTens.innerHTML = "0" + tens; // display to Live
+        appendTensVictory.innerHTML = "0" + tens; // display to Victory
     } else if (tens > 9){
-      appendTens.innerHTML = tens;
-        appendTensVictory.innerHTML = tens;
+        appendTens.innerHTML = tens; // display to Live
+        appendTensVictory.innerHTML = tens; // display to Live
       
     } 
     
     if (tens > 99) {
-      console.log("seconds");
-      seconds++;
-      appendSeconds.innerHTML = "0" + seconds;
-        appendSecondsVictory.innerHTML = "0" + seconds;
-      tens = 0;
-      appendTens.innerHTML = "0" + 0;
-        appendTensVictory.innerHTML = "0" + 0;
+        seconds++;
+        appendSeconds.innerHTML = "0" + seconds; // display to Live
+        appendSecondsVictory.innerHTML = "0" + seconds; // display to Live
+        tens = 0;
+        appendTens.innerHTML = "0" + 0; // display to Live
+        appendTensVictory.innerHTML = "0" + 0; // display to Live
     }
     
     if (seconds > 9){
-      appendSeconds.innerHTML = seconds;
-        appendSecondsVictory.innerHTML = seconds;
+        appendSeconds.innerHTML = seconds; // display to Live
+        appendSecondsVictory.innerHTML = seconds; // display to Live
     }
   
 }
 
-function stopTimer() {
+function stopTimer() { // stops the timer
        clearInterval(Interval);
 }
 
-// Time live calculs
-function startTimer() {
-     clearInterval(Interval);
-     Interval = setInterval(timeLiveCaluclations, 10);
-  }
+function startTimer() { // Start the timer
+    clearInterval(Interval); // stops the timer (in case it was working before)
+    Interval = setInterval(timeLiveCaluclations, 10); // calls the timeLiveCalculations function every 0.01sec, so it will add 1 tens of second, and display it.
+}
   
-    
-  
-
-function resetTimer() {
-     clearInterval(Interval);
-    tens = "00";
-  	seconds = "00";
-    appendTens.innerHTML = tens;
-  	appendSeconds.innerHTML = seconds;
+function resetTimer() { // reset timer to initial state
+    clearInterval(Interval); // stops the timer
+    tens = "00"; // reset tens of seconds to zero
+    seconds = "00"; // reset seconds to zero
+    appendTens.innerHTML = tens; // display to Live
+    appendSeconds.innerHTML = seconds; // display to Live
 }
 
 
@@ -357,18 +326,15 @@ const closeCross = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 closeCross.onclick = function() {
-  document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
+    document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
 } 
 
 
 /*
  * call the function setting up the game board, with already the list of cards
  */
-setGameBoard(listCards);
-// function timing the game
-const gameStartTime = performance.now();
-console.log(gameStartTime);
-// function enabling the game play
-cardClicking();
-//function to restart the game
-resetGame();
+setGameBoard(listCards); // function setting up the gane board
+
+cardClicking(); // function enabling the game play
+
+resetGame(); //function to restart the game
