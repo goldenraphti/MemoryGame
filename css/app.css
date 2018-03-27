@@ -26,11 +26,13 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 95vh;
 }
 
 h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+    margin-bottom: 5vmin;
 }
 
 /*
@@ -97,30 +99,40 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 50%;
-    margin-bottom: 10px;
+    width: 60vmin;
+    margin-bottom: 2vmin;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .on-game-results {
-    width: 50%;
+    width: 70%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: baseline;
+}
+
+.on-game-results>* {
+    margin-right: 5vmin;
 }
 
 .score-panel .stars {
     margin: 0;
     padding: 0;
-    display: inline-block;
-    margin: 0 20px 0 0;
+    display: flex;
 }
 
 .score-panel .stars li {
     list-style: none;
-    display: inline-block;
+}
+
+.move-block {
+    display: flex;
+}
+
+.moves {
+    margin-right: 5px;
 }
 
 .score-panel i .far{
@@ -130,6 +142,16 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.timer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.timer>* {
+    margin-right: 5px;
 }
 
 /*

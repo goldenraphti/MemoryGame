@@ -25,7 +25,7 @@
         </div>
         <h2>Congratulations! You Won!</h2>
         <div class="game-results">
-            With <span class="moves-victory-result"></span> Moves and <span class="stars-victory-result"></span> Stars, in <span class="time-victory-result"></span> Seconds.
+            With <span class="moves-victory-result"></span> Moves and <span class="stars-victory-result"></span> Stars, in <span id="seconds-victory">00</span> seconds and <span id="tens-victory">00</span> tens.
             <br>Woooooo!
         </div>
         <button class="restart">Play again!</button>
@@ -38,19 +38,20 @@
 
         <section class="score-panel">
         	<div class="on-game-results">
-        	    <ul class="stars">
-        	        <li><i class="fa fa-star"></i></li>
-        	        <li><i class="fa fa-star"></i></li>
-        	        <li><i class="fa fa-star"></i></li>
-        	    </ul>
+        	    <div class="stars-div">
+        	        <ul class="stars">
+        	            <li><i class="fa fa-star"></i></li>
+        	            <li><i class="fa fa-star"></i></li>
+        	            <li><i class="fa fa-star"></i></li>
+        	        </ul>
+        	    </div>
         	    
-        	    <div class="moves">0</div> Moves
+        	    <div class="move-block"><div class="moves">0</div> Moves</div>
         	    
-<!--
-        	              <div class="timer">
-        	                  <i class="fa fa-clock-o" aria-hidden="true"></i>
-        	              </div>
--->
+                  <div class="timer">
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
+                      <div class="stopwatch"><span id="seconds">00</span>:<span id="tens">00</span></div>
+                  </div>
         	</div>
            
             <div class="restart">

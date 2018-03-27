@@ -208,7 +208,7 @@ function cardChecking() {
     function hideNonSimilarCards() {
         for (i=0; i < 2 ; i++){
             
-            lastTwoCardsChecked[i].setAttribute("class", "card")
+            lastTwoCardsChecked[i].setAttribute("class", "card");
         }
     };
 
@@ -238,7 +238,18 @@ function cardChecking() {
         moveCounter();
         clearCardClickedMemory();
 
+    } else if (moveNumber===0) {
+                startTimer();
+   };
+}
+
+// function restarting stars to initial state
+function starReset() {
+    starRate = 0;
+    for ( i=0 ; i<3 ; i++ ){
+            starsDisplayed[i].setAttribute('class','fa fa-star');
     };
+    
 }
 
 // variable selecting the reset button
@@ -248,6 +259,7 @@ const resetButton = document.querySelectorAll('.restart');
 function resetGame() {
     for (let i=0 ; i<2 ; i++) {
         resetButton[i].addEventListener('click',function(){
+            
             document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');  
             removeExistingBoard();
             setGameBoard(listCards);
@@ -255,6 +267,8 @@ function resetGame() {
             movesDisplay.textContent = moveNumber;
              cardClickedMemory = ['',''];
             cardClicking();
+            starReset();
+            resetTimer();
         } , false);
     };
 };
@@ -267,9 +281,7 @@ function checkWinning() {
     console.log(cardMatching);
     if(cardMatching === listCards.length) {
         console.log(`victory`);
-        const gameEndTime = performance.now();
-        console.log("Time result: " + ((gameEndTime - gameStartTime) / 1000) + " seconds.");
-        const timeVictoryResult = ((gameEndTime - gameStartTime) / 1000) ;
+        stopTimer();
         document.querySelector('.victory-modal').setAttribute('class','victory-modal');        
         displayVictoryMoves();
         document.querySelector('.time-victory-result').textContent = timeVictoryResult;
@@ -281,11 +293,70 @@ function displayVictoryMoves() {
     document.querySelector('.stars-victory-result').textContent = starRate;
 }
 
+let seconds = 00; 
+let tens = 00; 
+const appendTens = document.getElementById("tens");
+const appendSeconds = document.getElementById("seconds");
+let Interval ;
+const appendTensVictory = document.getElementById("tens-victory");
+const appendSecondsVictory = document.getElementById("seconds-victory");
+
+function timeLiveCaluclations () {
+    tens++; 
+    
+    if(tens < 9){
+      appendTens.innerHTML = "0" + tens;
+      appendTensVictory.innerHTML = "0" + tens;
+    } else if (tens > 9){
+      appendTens.innerHTML = tens;
+        appendTensVictory.innerHTML = tens;
+      
+    } 
+    
+    if (tens > 99) {
+      console.log("seconds");
+      seconds++;
+      appendSeconds.innerHTML = "0" + seconds;
+        appendSecondsVictory.innerHTML = "0" + seconds;
+      tens = 0;
+      appendTens.innerHTML = "0" + 0;
+        appendTensVictory.innerHTML = "0" + 0;
+    }
+    
+    if (seconds > 9){
+      appendSeconds.innerHTML = seconds;
+        appendSecondsVictory.innerHTML = seconds;
+    }
+  
+}
+
+function stopTimer() {
+       clearInterval(Interval);
+}
+
+// Time live calculs
+function startTimer() {
+     clearInterval(Interval);
+     Interval = setInterval(timeLiveCaluclations, 10);
+  }
+  
+    
+  
+
+function resetTimer() {
+     clearInterval(Interval);
+    tens = "00";
+  	seconds = "00";
+    appendTens.innerHTML = tens;
+  	appendSeconds.innerHTML = seconds;
+}
+
+
 // Get the <span> element that closes the modal
-const span = document.getElementsByClassName("close")[0];
+const closeCross = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+closeCross.onclick = function() {
   document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
 } 
 
@@ -301,5 +372,3 @@ console.log(gameStartTime);
 cardClicking();
 //function to restart the game
 resetGame();
-
-
