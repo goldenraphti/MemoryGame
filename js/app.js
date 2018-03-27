@@ -256,6 +256,14 @@ function displayVictoryMoves() {
     document.querySelector('.moves-victory-result').textContent = moveNumber;
 }
 
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
+} 
+
 // call the function setting up the game board, with already the list of cards
 setGameBoard(listCards);
 //make the cards clickable and their behaviour when clicked
