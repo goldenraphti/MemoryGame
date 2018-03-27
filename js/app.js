@@ -22,14 +22,6 @@ let listCards = [
   'bomb'
 ]
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -132,6 +124,7 @@ function cardClicking(card){
                     cardIDStoring(card);
                     cardChecking();
                     checkWinning();
+                    starRating ();
                 }
             
             }, false );
@@ -173,6 +166,34 @@ function moveCounter (){
     moveNumber++;
     console.log(`move counter: ${moveNumber}`);
     movesDisplay.textContent = moveNumber;
+}
+
+// result of stars
+let starRate = 3;
+//variable selecting the star result board
+const starBoard = document.querySelector('.stars');
+//variable selecting all the stars displayed in the result board
+const starsDisplayed = starBoard.querySelectorAll('i');
+// function rating in stars the result of the user, and displaying it in the board
+function starRating () {
+    if(moveNumber>25){
+        starRate = 0;
+    }  else if (moveNumber===25){
+        starRate = 0;
+        starsDisplayed[0].setAttribute('class','fa fa-star-o')
+    } else if (moveNumber>18){
+        starRate = 1;
+    }  else if (moveNumber===18){
+        starRate = 0;
+        starsDisplayed[1].setAttribute('class','fa fa-star-o')
+    } else if (moveNumber>14){
+        starRate = 2;
+    } else if (moveNumber===14){
+        starRate = 0;
+        starsDisplayed[2].setAttribute('class','fa fa-star-o')
+    };
+    
+    console.log(`star rate: ${starRate}`);
 }
 
 
@@ -251,9 +272,10 @@ function checkWinning() {
         displayVictoryMoves();
     }
 }
-
+// function displaying the moves counter result in the victory modal
 function displayVictoryMoves() {
     document.querySelector('.moves-victory-result').textContent = moveNumber;
+    document.querySelector('.stars-victory-result').textContent = starRate;
 }
 
 // Get the <span> element that closes the modal
@@ -264,10 +286,12 @@ span.onclick = function() {
   document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
 } 
 
-// call the function setting up the game board, with already the list of cards
+/*
+ * call the function setting up the game board, with already the list of cards
+ */
 setGameBoard(listCards);
-//make the cards clickable and their behaviour when clicked
+// function enabling the game play
 cardClicking();
-
+//function to restart the game
 resetGame();
 

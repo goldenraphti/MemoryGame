@@ -97,7 +97,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 20%;
+    width: 30%;
     margin-bottom: 10px;
 }
 
@@ -105,12 +105,16 @@ h1 {
     margin: 0;
     padding: 0;
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin: 0 20px 0 0;
 }
 
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+}
+
+.score-panel i .far{
+    font-size: 14px;
 }
 
 .score-panel .restart {
