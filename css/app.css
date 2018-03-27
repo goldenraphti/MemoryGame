@@ -97,8 +97,18 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 30%;
+    width: 50%;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.on-game-results {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
 }
 
 .score-panel .stars {

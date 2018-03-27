@@ -267,12 +267,15 @@ function checkWinning() {
     console.log(cardMatching);
     if(cardMatching === listCards.length) {
         console.log(`victory`);
-
+        const gameEndTime = performance.now();
+        console.log("Time result: " + ((gameEndTime - gameStartTime) / 1000) + " seconds.");
+        const timeVictoryResult = ((gameEndTime - gameStartTime) / 1000) ;
         document.querySelector('.victory-modal').setAttribute('class','victory-modal');        
         displayVictoryMoves();
+        document.querySelector('.time-victory-result').textContent = timeVictoryResult;
     }
 }
-// function displaying the moves counter result in the victory modal
+// function displaying the moves, stars and time counter result in the victory modal
 function displayVictoryMoves() {
     document.querySelector('.moves-victory-result').textContent = moveNumber;
     document.querySelector('.stars-victory-result').textContent = starRate;
@@ -286,12 +289,17 @@ span.onclick = function() {
   document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
 } 
 
+
 /*
  * call the function setting up the game board, with already the list of cards
  */
 setGameBoard(listCards);
+// function timing the game
+const gameStartTime = performance.now();
+console.log(gameStartTime);
 // function enabling the game play
 cardClicking();
 //function to restart the game
 resetGame();
+
 
