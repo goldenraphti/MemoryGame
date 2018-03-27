@@ -126,11 +126,13 @@ function cardClicking(card){
     
     for (let i = 0; i < allCards.length ; i++) {
         allCards[i].addEventListener('click', function(card) {
-                card.target.setAttribute("class", "show open card");
-                
-                cardIDStoring(card);
-                cardChecking();
-                checkWinning();
+                if(card.target.tagName === 'LI'){
+                    card.target.setAttribute("class", "show open card");
+
+                    cardIDStoring(card);
+                    cardChecking();
+                    checkWinning();
+                }
             
             }, false );
     }
