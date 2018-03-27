@@ -9,7 +9,9 @@
 ## Instructions for the players
 
 Memory Game.
+
 Time will start when the player open a first card.
+
 The user can only check 2 cards maximum. If they match they will lock in open position. Else they will hide again.
 The goal is to match all the cards as quickly as possible.
 The number of moves, and the time are recorded.
