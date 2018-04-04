@@ -154,7 +154,6 @@ function moveCounter (){ // function adding a move everytime two cards have been
     movesDisplay.textContent = moveNumber;
 }
 
-
 let starRate = 3; // result of stars (starts with 3)
 
 const starBoard = document.querySelector('.stars'); //variable selecting the star result board
@@ -162,19 +161,14 @@ const starBoard = document.querySelector('.stars'); //variable selecting the sta
 const starsDisplayed = starBoard.querySelectorAll('i'); //variable selecting all the stars displayed in the result board
 
 function starRating () { // function rating in stars the result of the user, and displaying it in the board
-    if(moveNumber>25){
-        starRate = 0;
-    }  else if (moveNumber===25){
-        starRate = 0;
-        starsDisplayed[0].setAttribute('class','fa fa-star-o')
-    } else if (moveNumber>18){
+    if (moveNumber>18){
         starRate = 1;
     }  else if (moveNumber===18){
         starRate = 0;
         starsDisplayed[1].setAttribute('class','fa fa-star-o')
-    } else if (moveNumber>14){
+    } else if (moveNumber>15){
         starRate = 2;
-    } else if (moveNumber===14){
+    } else if (moveNumber===15){
         starRate = 0;
         starsDisplayed[2].setAttribute('class','fa fa-star-o')
     };
