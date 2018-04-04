@@ -249,10 +249,15 @@ function checkWinning() { //function checking if player has won
     
     const cardMatching = deck.querySelectorAll('li.match').length;
     if(cardMatching === listCards.length) {
+        // stop counting and record results in variables
         stopTimer();
+        currentResult = {
+            moveNumber,
+            currentVictoryTime
+        }
+        // display results
         document.querySelector('.victory-modal').setAttribute('class','victory-modal');        
         displayVictoryMoves();
-        document.querySelector('.time-victory-result').textContent = timeVictoryResult;
     }
 }
 // function displaying the moves, stars and time counter result in the victory modal
@@ -323,6 +328,14 @@ closeCross.onclick = function() {
     document.querySelector('.victory-modal').setAttribute('class','victory-modal hidden');
 } 
 
+/*
+ * Hall of fame
+ */
+
+// variable recording the records
+let currentResult, resultBest, resultSecondBest, resultThirdBest;
+
+let currentVictoryTime = new Date();  // record current date in variable at the moment when it's called
 
 /*
  * call the function setting up the game board, with already the list of cards
