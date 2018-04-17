@@ -251,13 +251,19 @@ function checkWinning() { //function checking if player has won
     if(cardMatching === listCards.length) {
         // stop counting and record results in variables
         stopTimer();
+        // stop counting and store for Hall of fame
+        let currentVictoryDate = new Date();
         currentResult = {
             moveNumber,
-            currentVictoryTime
+            currentVictoryDate,
+            timeVictory: `time: ${seconds}'' ${tens} tens`,
         }
+        insertCurrentResultInHallOfFame(); // calculate ranking
         // display results
         document.querySelector('.victory-modal').setAttribute('class','victory-modal');        
         displayVictoryMoves();
+        // display hall of fame
+        displayHallOfFame();
     }
 }
 // function displaying the moves, stars and time counter result in the victory modal
@@ -333,9 +339,73 @@ closeCross.onclick = function() {
  */
 
 // variable recording the records
-let currentResult, resultBest, resultSecondBest, resultThirdBest;
+let currentResult, resultBest, resultSecondBest, resultThirdBest, emptyResult;
 
-let currentVictoryTime = new Date();  // record current date in variable at the moment when it's called
+// set hall of fame to zero
+emptyResult = {
+            moveNumber : 100,
+            currentVictoryDate : new Date(),
+            timeVictory: `${seconds}''${tens}tens`,
+}
+resultBest = emptyResult;
+resultSecondBest= emptyResult;
+resultThirdBest = emptyResult;
+
+//function checking if current result is worth entering the Hall of fame, and rank it
+function insertCurrentResultInHallOfFame(){
+    if(currentResult.moveNumber < resultBest.moveNumber){
+        resultThirdBest = resultSecondBest;
+        resultSecondBest = resultBest;
+        resultBest = currentResult;
+    } else if (currentResult.moveNumber < resultSecondBest.moveNumber) {
+        resultThirdBest = resultSecondBest;
+        resultSecondBest = currentResult;
+    } else if (currentResult.moveNumber < resultThirdBest.moveNumber) {
+        resultThirdBest = currentResult;
+    };
+}
+
+// display Hall of fame amd hide empty results
+
+function displayHallOfFame() {
+    // display results for Best result
+    document.getElementById('moves-fame-best').textContent = resultBest.moveNumber;
+    document.getElementById('time-fame-best').textContent = resultBest.timeVictory;
+    document.getElementById('date-fame-best').textContent = resultBest.currentVictoryDate;
+    
+    // for Second best
+    document.getElementById('moves-fame-second-best').textContent = resultSecondBest.moveNumber;
+    document.getElementById('time-fame-second-best').textContent = resultSecondBest.timeVictory;
+    document.getElementById('date-fame-second-best').textContent = resultSecondBest.currentVictoryDate;
+    
+    // for Third Best
+    document.getElementById('moves-fame-third-best').textContent = resultThirdBest.moveNumber;
+    document.getElementById('time-fame-third-best').textContent = resultThirdBest.timeVictory;
+    document.getElementById('date-fame-third-best').textContent = resultThirdBest.currentVictoryDate;
+    
+    //hide empty results
+    if (resultSecondBest.moveNumber === 100) {
+        document.getElementById('result2').style.display = 'none';
+    } else {
+        document.getElementById('result2').style.display = 'block';
+    }
+        
+    if (resultThirdBest.moveNumber === 100) {
+        document.getElementById('result3').style.display = 'none';
+    } else {
+        document.getElementById('result3').style.display = 'block';
+    }
+    
+    // style for new entry in hall of fame
+    if (currentResult.timeVictory === resultBest.timeVictory ) {
+        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
+    } else if (currentResult.timeVictory === resultSecondBest.timeVictory ) {
+        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
+    } else if (currentResult.timeVictory === resultThirdBest.timeVictory ) {
+        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
+    }
+    
+}
 
 /*
  * call the function setting up the game board, with already the list of cards
