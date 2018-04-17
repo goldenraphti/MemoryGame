@@ -383,6 +383,22 @@ function displayHallOfFame() {
     document.getElementById('time-fame-third-best').textContent = resultThirdBest.timeVictory;
     document.getElementById('date-fame-third-best').textContent = resultThirdBest.currentVictoryDate;
     
+     
+    // style for new entry in hall of fame
+    if (currentResult.timeVictory === resultBest.timeVictory ) {
+        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
+        document.getElementById('result2').setAttribute("style", "");
+        document.getElementById('result3').setAttribute("style", "");
+    } else if (currentResult.timeVictory === resultSecondBest.timeVictory ) {
+        document.getElementById('result2').setAttribute("style", "color:red; font-weight: bold;");
+        document.getElementById('result1').setAttribute("style", "");
+        document.getElementById('result3').setAttribute("style", "");
+    } else if (currentResult.timeVictory === resultThirdBest.timeVictory ) {
+        document.getElementById('result3').setAttribute("style", "color:red; font-weight: bold;");
+        document.getElementById('result1').setAttribute("style", "");
+        document.getElementById('result2').setAttribute("style", "");
+    }
+    
     //hide empty results
     if (resultSecondBest.moveNumber === 100) {
         document.getElementById('result2').style.display = 'none';
@@ -395,15 +411,7 @@ function displayHallOfFame() {
     } else {
         document.getElementById('result3').style.display = 'block';
     }
-    
-    // style for new entry in hall of fame
-    if (currentResult.timeVictory === resultBest.timeVictory ) {
-        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
-    } else if (currentResult.timeVictory === resultSecondBest.timeVictory ) {
-        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
-    } else if (currentResult.timeVictory === resultThirdBest.timeVictory ) {
-        document.getElementById('result1').setAttribute("style", "color:red; font-weight: bold;");
-    }
+   
     
 }
 
