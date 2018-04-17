@@ -371,17 +371,17 @@ function displayHallOfFame() {
     // display results for Best result
     document.getElementById('moves-fame-best').textContent = resultBest.moveNumber;
     document.getElementById('time-fame-best').textContent = resultBest.timeVictory;
-    document.getElementById('date-fame-best').textContent = resultBest.currentVictoryDate;
+    document.getElementById('date-fame-best').textContent = formatDate(resultBest.currentVictoryDate);
     
     // for Second best
     document.getElementById('moves-fame-second-best').textContent = resultSecondBest.moveNumber;
     document.getElementById('time-fame-second-best').textContent = resultSecondBest.timeVictory;
-    document.getElementById('date-fame-second-best').textContent = resultSecondBest.currentVictoryDate;
+    document.getElementById('date-fame-second-best').textContent = formatDate(resultSecondBest.currentVictoryDate);
     
     // for Third Best
     document.getElementById('moves-fame-third-best').textContent = resultThirdBest.moveNumber;
     document.getElementById('time-fame-third-best').textContent = resultThirdBest.timeVictory;
-    document.getElementById('date-fame-third-best').textContent = resultThirdBest.currentVictoryDate;
+    document.getElementById('date-fame-third-best').textContent = formatDate(resultThirdBest.currentVictoryDate);
     
      
     // style for new entry in hall of fame
@@ -399,20 +399,37 @@ function displayHallOfFame() {
         document.getElementById('result2').setAttribute("style", "");
     }
     
-    //hide empty results
+    // hide result 2 if empty
     if (resultSecondBest.moveNumber === 100) {
         document.getElementById('result2').style.display = 'none';
     } else {
         document.getElementById('result2').style.display = 'block';
     }
-        
+    // hide result 3 if empty
     if (resultThirdBest.moveNumber === 100) {
         document.getElementById('result3').style.display = 'none';
     } else {
         document.getElementById('result3').style.display = 'block';
     }
    
-    
+}
+
+// function to style the date
+function formatDate(date) {
+    const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+    ];
+
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+    const minute = date.getMinutes();
+    const hours = date.getHours();
+
+  return `${day} ${monthNames[monthIndex]} ${year} - ${hours}:${minute}`;
 }
 
 /*
